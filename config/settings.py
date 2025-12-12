@@ -43,7 +43,7 @@ DJANGO_APPS = [
 
 THIRD_PARTY_APPS = [
     "widget_tweaks",
-    "django_browser_reload",
+    # "django_browser_reload",
 ]
 
 PROJECT_APPS = [
@@ -63,7 +63,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "django_browser_reload.middleware.BrowserReloadMiddleware",
+    # "django_browser_reload.middleware.BrowserReloadMiddleware",
 ]
 
 ROOT_URLCONF = "config.urls"

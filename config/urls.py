@@ -26,7 +26,7 @@ urlpatterns = [
     path("", include("core.urls")),
     path("inventory/", include("inventory.urls")),
     path("orders/", include("orders.urls")),
-    path("__reload__/", include("django_browser_reload.urls")),
+    # path("__reload__/", include("django_browser_reload.urls")),
 ]
 
 if settings.DEBUG:
