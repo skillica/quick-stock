@@ -1,0 +1,80 @@
+{% extends 'core/base.html' %}
+{% block title %}
+    Product List
+{% endblock title %}
+{% block content %}
+    <div class="container py-4">
+        <!-- Page Header -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="fw-bold">Products</h2>
+            <a href="{% url 'inventory:create' %}" class="btn btn-primary">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                     width="16"
+                     height="16"
+                     fill="currentColor"
+                     class="bi bi-plus-circle"
+                     viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+                </svg>
+            Add Product</a>
+        </div>
+        <!-- Filter & Sort By -->
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                <form method="get" class="row align-items-center">
+                    {% include 'inventory/components/search.html' %}
+                    {% include 'inventory/components/sort-by.html' %}
+                    <!-- Submit -->
+                    <div class="col-sm-2">
+                        <button class="btn btn-dark w-100">Apply</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- Product Table -->
+        <div class="card shadow-sm">
+            <div class="card-body p-0">
+                <table class="table table-hover mb-0">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Image</th>
+                            <th>SKU</th>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>Stock</th>
+                            <th>Low Threshold</th>
+                            <th>Date Added</th>
+                            <th class="text-end">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for product in products %}
+                            {% include 'inventory/partials/product_row.html' with p=product %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+{% block scripts %}
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll('.datetime').forEach(el => {
+                const dt = el.innerHTML;
+
+                if (dt)  {
+                    const date = new Date(dt);
+                    el.textContent = date.toLocaleString([], {
+                        year: 'numeric',
+                        month: 'short',
+                        day: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+                }
+            });
+        });
+    </script>
+{% endblock scripts %}

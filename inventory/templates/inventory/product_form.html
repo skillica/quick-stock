@@ -1,0 +1,70 @@
+{% extends 'core/base.html' %}
+{% load widget_tweaks %}
+{% block content %}
+    <div class="container py-4">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-6">
+                <div class="card shadow-sm rounded-4">
+                    <!-- Card Header -->
+                    <div class="card-header bg-dark text-white text-center rounded-top-4 py-3">
+                        <h4 class="mb-0">
+                            {% if product %}
+                                Update Product
+                            {% else %}
+                                Add New Product
+                            {% endif %}
+                        </h4>
+                    </div>
+                    <!-- Card Body -->
+                    <div class="card-body">
+                        <form method="post" enctype="multipart/form-data" novalidate>
+                            {% csrf_token %}
+                            <!-- Name -->
+                            <div class="mb-3">
+                                <label class="form-label">Product Name</label>
+                                {% render_field form.name class="form-control" placeholder="Enter Product Name" %}
+                                {% if form.name.errors %}<small class="text-danger">{{ form.name.errors.0 }}</small>{% endif %}
+                            </div>
+                            <!-- Price -->
+                            <div class="mb-3">
+                                <label class="form-label">Price</label>
+                                {% render_field form.price class="form-control" placeholder="0.00" %}
+                                {% if form.price.errors %}<small class="text-danger">{{ form.price.errors.0 }}</small>{% endif %}
+                            </div>
+                            <!-- Stock -->
+                            <div class="mb-3">
+                                <label class="form-label">Stock</label>
+                                {% render_field form.stock class="form-control" %}
+                                {% if form.stock.errors %}<small class="text-danger">{{ form.stock.errors.0 }}</small>{% endif %}
+                            </div>
+                            <!-- Low Stock Threshold -->
+                            <div class="mb-3">
+                                <label class="form-label">Low Stock Threshold</label>
+                                {% render_field form.low_stock_threshold class="form-control" %}
+                                {% if form.low_stock_threshold.errors %}
+                                    <small class="text-danger">{{ form.low_stock_threshold.errors.0 }}</small>
+                                {% endif %}
+                            </div>
+                            <!-- Image -->
+                            <div class="mb-3">
+                                <label class="form-label">Product Image</label>
+                                {% render_field form.image class='form-control' %}
+                                {% if form.image.errors %}<small class="text-danger">{{ form.image.errors.0 }}</small>{% endif %}
+                            </div>
+                            <!-- Submit -->
+                            <div class="d-flex justify-content-end mt-4">
+                                <button class="btn btn-dark py-2 px-4 rounded-3">
+                                    {% if product %}
+                                        Update
+                                    {% else %}
+                                        Create
+                                    {% endif %}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

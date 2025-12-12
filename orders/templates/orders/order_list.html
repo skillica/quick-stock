@@ -1,0 +1,64 @@
+{% extends 'core/base.html' %}
+{% load humanize %}
+{% block content %}
+    <div class="container mt-5">
+        <div class="d-flex justify-content-between align-items center mb-4">
+            <h2>Orders</h2>
+            <a href="{% url 'orders:create' %}" class="btn btn-dark">New Order</a>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Order #</th>
+                                <th>Customer</th>
+                                <th>Status</th>
+                                <th>Total</th>
+                                <th>Created</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for order in orders %}
+                                <tr>
+                                    <td>{{ order.pk }}</td>
+                                    <td>{{ order.customer_name }}</td>
+                                    <td>
+                                        <span class="badge bg-{% if order.status == 'completed' %}success{% elif order.status == 'canceled' %}danger{% else %}warning{% endif %}">{{ order.status|upper }}</span>
+                                    </td>
+                                    <td>Rs.{{ order.total_price|intcomma }}</td>
+                                    <td class="datetime">{{ order.created_at|date:'c' }}</td>
+                                    <td>
+                                        <a href="#" class="btn btn-sm btn-dark">View</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+{% block scripts %}
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll('.datetime').forEach(el => {
+                const dt = el.innerHTML;
+
+                if (dt)  {
+                    const date = new Date(dt);
+                    el.textContent = date.toLocaleString([], {
+                        year: 'numeric',
+                        month: 'short',
+                        day: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+                }
+            });
+        });
+    </script>
+{% endblock scripts %}

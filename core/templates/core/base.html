@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>
+            {% block title %}
+                Quick Stock | Inventory Management System
+            {% endblock title %}
+        </title>
+        {% include 'core/components/css.html' %}
+    </head>
+    <body class="bg-light d-flex flex-column min-vh-100">
+        {% include 'core/components/main_header.html' %}
+        <main>
+            {% block content %}
+            {% endblock content %}
+        </main>
+        {% include 'core/components/footer.html' %}
+        {% include 'core/components/scripts.html' %}
+        {% block scripts %}
+        {% endblock scripts %}
+    </body>
+</html>

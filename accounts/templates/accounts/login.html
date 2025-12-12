@@ -1,0 +1,44 @@
+{% extends 'core/base.html' %}
+{% load widget_tweaks %}
+{% block content %}
+    <div class="container py-4">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-6">
+                <div class="card shadow-sm rounded-4">
+                    <div class="card-header bg-dark text-white text-center rounded-top-4 py-3">
+                        <h4 class="mb-0">User Login</h4>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" novalidate>
+                            {% csrf_token %}
+                            <!-- Email -->
+                            <div class="mb-3">
+                                <label class="form-label">Email</label>
+                                {% render_field form.username class="form-control" placeholder="Enter email" %}
+                                {% if form.username.errors %}<small class="text-danger">{{ form.username.errors.0 }}</small>{% endif %}
+                            </div>
+                            <!-- Password -->
+                            <div class="mb-3">
+                                <label class="form-label">Password</label>
+                                {% render_field form.password class="form-control" placeholder="Enter password" %}
+                                {% if form.password.errors %}<small class="text-danger">{{ form.password.errors.0 }}</small>{% endif %}
+                            </div>
+                            <!-- Remember Me -->
+                            <div class="form-check mb-3">
+                                <input type="checkbox"
+                                       class="form-check-input"
+                                       name="remember"
+                                       id="remember">
+                                <label class="form-check-label" for="remember">Remember Me</label>
+                            </div>
+                            <!-- Submit -->
+                            <div class="d-flex justify-content-center mt-4">
+                                <button class="btn btn-dark py-2 px-4 rounded-3">Login</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
